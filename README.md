@@ -1,4 +1,4 @@
-## Requirements
+## User Requirements
 
 **Functional**
 
@@ -15,6 +15,46 @@
 - Using TypeScript programming language
 - CSS framework using Tailwind
 
-## API
+## API Endpoints
 
-(will be decided later)
+- `GET /api/v1/savings`
+
+  Description: Get all savings data
+
+  Response:
+
+  - Status code : 200 (OK)
+
+    ```JSON
+    {
+      "status": "ok",
+      "data": [
+        {"date": "01-01-2023", "amount": "100,000.00"},
+        {"date": "02-01-2023", "amount": "50,000.00"},
+        {"date": "03-01-2023", "amount": "25,000.00"},
+      ]
+    }
+    ```
+
+- `POST /api/v1/savings`
+
+  Description: Create savings data
+
+  Payload:
+
+  ```JSON
+  {
+    "date": "2023-07-16T05:22:06.160Z",
+    "amount": 100000
+  }
+  ```
+
+  Response:
+
+  - Status code : 201 (Created)
+    ```JSON
+    {
+      "status": "created",
+      "message": "Savings created successful."
+    }
+    ```
