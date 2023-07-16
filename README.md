@@ -14,6 +14,7 @@
 - Frontend using React
 - Using TypeScript programming language
 - CSS framework using Tailwind
+- API Documentation using Swagger with OpenAPI conventions
 
 ## API Endpoints
 
@@ -36,6 +37,23 @@
     }
     ```
 
+- `GET /api/v1/savings/total`
+
+  Description: Get savings amount total
+
+  Response:
+
+  - Status code : 200 (OK)
+
+    ```JSON
+    {
+      "status": "ok",
+      "data": {
+        "total" : "175,000.00"
+      }
+    }
+    ```
+
 - `POST /api/v1/savings`
 
   Description: Create savings data
@@ -52,6 +70,7 @@
   Response:
 
   - Status code : 201 (Created)
+
     ```JSON
     {
       "status": "created",
