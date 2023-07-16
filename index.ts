@@ -7,6 +7,13 @@ dotenv.config();
 const port = 3000;
 const app: Express = express();
 
+app.use(express.json());
+
+interface ISaving {
+  date: Date;
+  amount: number;
+}
+
 const pool = new Pool({
   host: process.env.DATABASE_HOST,
   port: 5432,
@@ -17,12 +24,40 @@ const pool = new Pool({
 
 const getSavings = async (request: Request, response: Response) => {
   const result = await pool.query(
-    "SELECT TO_CHAR(date, 'DD-MM-YYYY') as date, TO_CHAR(amount, 'FM9,999,999.00') as amount FROM savings"
+    "SELECT TO_CHAR(date, 'DD-MM-YYYY') AS date, TO_CHAR(amount, 'FM9,999,999.00') AS amount FROM savings ORDER BY date"
   );
-  response.status(200).send(result.rows);
+  response.status(200).send({
+    status: "ok",
+    data: result.rows,
+  });
 };
 
-app.get("/savings", getSavings);
+const getSavingsTotal = async (request: Request, response: Response) => {
+  const result = await pool.query(
+    "SELECT TO_CHAR(SUM(amount), 'FM9,999,999.00') AS total FROM savings"
+  );
+  response.status(200).send({
+    status: "ok",
+    data: result.rows[0],
+  });
+};
+
+const createSavings = async (request: Request, response: Response) => {
+  const { date, amount }: ISaving = request.body;
+  const result = await pool.query(
+    "INSERT INTO savings (date, amount) VALUES ($1, $2)",
+    [date, amount]
+  );
+  console.log(result);
+  response.status(201).send({
+    status: "created",
+    message: "Savings created successful.",
+  });
+};
+
+app.get("/api/v1/savings", getSavings);
+app.get("/api/v1/savings/total", getSavingsTotal);
+app.post("/api/v1/savings", createSavings);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
