@@ -77,3 +77,8 @@
       "message": "Savings created successful."
     }
     ```
+
+## Todos
+
+- [x] Split code from index.ts to separate files
+- [ ] Explore the best practice for routing implementation
