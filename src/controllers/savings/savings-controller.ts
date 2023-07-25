@@ -8,7 +8,7 @@ interface ISaving {
 
 export const getSavings = async (request: Request, response: Response) => {
   const result = await db.query(
-    "SELECT date, amount AS amount FROM savings ORDER BY date"
+    "SELECT id, date, amount AS amount FROM savings ORDER BY date"
   );
   response.status(200).send({
     status: "ok",
