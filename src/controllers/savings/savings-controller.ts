@@ -8,7 +8,7 @@ interface ISaving {
 
 export const getSavings = async (request: Request, response: Response) => {
   const result = await db.query(
-    "SELECT TO_CHAR(date, 'DD-MM-YYYY') AS date, TO_CHAR(amount, 'FM9,999,999.00') AS amount FROM savings ORDER BY date"
+    "SELECT date, amount AS amount FROM savings ORDER BY date"
   );
   response.status(200).send({
     status: "ok",
@@ -17,12 +17,10 @@ export const getSavings = async (request: Request, response: Response) => {
 };
 
 export const getSavingsTotal = async (request: Request, response: Response) => {
-  const result = await db.query(
-    "SELECT TO_CHAR(SUM(amount), 'FM9,999,999.00') AS total FROM savings"
-  );
+  const result = await db.query("SELECT SUM(amount) AS total FROM savings");
   response.status(200).send({
     status: "ok",
-    data: result.rows[0],
+    data: { total: parseInt(result.rows[0].total) },
   });
 };
 
