@@ -3,8 +3,8 @@
 **Functional**
 
 - [ ] As a user, I want to record my savings daily, so I can see the savings progress
-- [ ] As a user, I want to see my savings list, so I got the insight about my savings
-- [ ] As a user, I want to see my total savings, so I can summarize the savings progress
+- [x] As a user, I want to see my savings list, so I got the insight about my savings
+- [x] As a user, I want to see my total savings, so I can summarize the savings progress
 
 **Non-Functional**
 
