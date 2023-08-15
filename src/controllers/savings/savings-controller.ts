@@ -26,13 +26,19 @@ export const getSavingsTotal = async (request: Request, response: Response) => {
 
 export const createSavings = async (request: Request, response: Response) => {
   const { date, amount }: ISaving = request.body;
-  const result = await db.query(
-    "INSERT INTO savings (date, amount) VALUES ($1, $2)",
-    [date, amount]
-  );
-  console.log(result);
-  response.status(201).send({
-    status: "created",
-    message: "Savings created successful.",
-  });
+  try {
+    await db.query("INSERT INTO savings (date, amount) VALUES ($1, $2)", [
+      date,
+      amount,
+    ]);
+    response.status(201).send({
+      status: "created",
+      message: "Savings created successful.",
+    });
+  } catch (error) {
+    response.status(500).send({
+      status: "error",
+      message: "Unable to create savings data",
+    });
+  }
 };
