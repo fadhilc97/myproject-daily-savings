@@ -81,5 +81,6 @@
 ## Todos
 
 - [x] Split code from index.ts to separate files
+- [x] Use try-catch block when create savings data
 - [ ] Explore the best practice for routing implementation
 - [ ] Implement logging, so we can track the request history
