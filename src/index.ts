@@ -1,6 +1,6 @@
 import express, { Express } from "express";
 import cors from "cors";
-import { savingsRoute } from "./routes";
+import { savingsRoute, authRoute } from "./routes";
 
 const port = 3000;
 const app: Express = express();
@@ -11,7 +11,8 @@ app.use(
     origin: "http://localhost:5173",
   })
 );
-app.use("/", savingsRoute);
+app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/savings", savingsRoute);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

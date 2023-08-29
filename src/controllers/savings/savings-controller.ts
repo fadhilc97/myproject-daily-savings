@@ -39,6 +39,7 @@ export const createSavings = async (request: Request, response: Response) => {
     response.status(500).send({
       status: "error",
       message: "Unable to create savings data",
+      error,
     });
   }
 };

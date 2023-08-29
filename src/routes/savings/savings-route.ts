@@ -3,8 +3,8 @@ import { createSavings, getSavings, getSavingsTotal } from "../../controllers";
 
 const router = express.Router();
 
-router.get("/api/v1/savings", getSavings);
-router.get("/api/v1/savings/total", getSavingsTotal);
-router.post("/api/v1/savings", createSavings);
+router.get("/", getSavings);
+router.get("/total", getSavingsTotal);
+router.post("/", createSavings);
 
 export default router;
