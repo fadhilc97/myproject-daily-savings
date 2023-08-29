@@ -2,6 +2,7 @@
 
 **Functional**
 
+- [ ] As a user, I should login first to allow access entire savings application
 - [x] As a user, I want to record my savings daily, so I can see the savings progress
 - [x] As a user, I want to see my savings list, so I got the insight about my savings
 - [x] As a user, I want to see my total savings, so I can summarize the savings progress
@@ -82,5 +83,7 @@
 
 - [x] Split code from index.ts to separate files
 - [x] Use try-catch block when create savings data
-- [ ] Explore the best practice for routing implementation
-- [ ] Implement logging, so we can track the request history
+- [x] Explore the best practice for routing implementation
+- [x] Register user functionality
+- [ ] Login functionality
+- [ ] JWT implementation under auth service
