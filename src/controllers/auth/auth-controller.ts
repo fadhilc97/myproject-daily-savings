@@ -2,19 +2,48 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { db } from "../../config";
 
-interface ILogin {
-  email: string;
-  password: string;
-}
-
-interface IRegister {
+interface IUser {
   fullName: string;
   email: string;
   password: string;
+}
+
+interface IRegister extends IUser {
   password2: string;
 }
 
-export const login = async (request: Request, response: Response) => {};
+export const login = async (request: Request, response: Response) => {
+  const { email, password }: IUser = request.body;
+
+  const errorJson = {
+    status: "error",
+    message: "Login failed. Please try again.",
+    error: "unauthorized",
+  };
+
+  // cari user berdasarkan email
+  const result = await db.query(
+    "SELECT email, password FROM users WHERE email = $1 LIMIT 1",
+    [email]
+  );
+
+  if (result.rowCount == 0) {
+    return response.status(401).send(errorJson);
+  }
+
+  // bandingkan password db dengan password dari user
+  const foundedUser: IUser = result.rows[0];
+  const isPasswordMatch = await bcrypt.compare(password, foundedUser.password);
+
+  if (!isPasswordMatch) {
+    return response.status(401).send(errorJson);
+  }
+
+  return response.status(200).send({
+    status: "ok",
+    message: "Login successful",
+  });
+};
 
 export const register = async (request: Request, response: Response) => {
   // terima data dari user berupa fullName, email dan password
@@ -43,7 +72,7 @@ export const register = async (request: Request, response: Response) => {
 
   try {
     // enkripsi password terlebih dahulu
-    const encryptedPassword = bcrypt.hash(password, 10);
+    const encryptedPassword = await bcrypt.hash(password, 10);
 
     // buat user baru jika belum pernah dibuat sebelumnya
     await db.query(
