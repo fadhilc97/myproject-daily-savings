@@ -85,5 +85,7 @@
 - [x] Use try-catch block when create savings data
 - [x] Explore the best practice for routing implementation
 - [x] Register user functionality
-- [ ] Login functionality
-- [ ] JWT implementation under auth service
+- [x] Login functionality
+- [x] JWT implementation under auth service
+- [ ] Implement access token to protect the certain resources
+- [ ] Refresh token functionality
