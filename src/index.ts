@@ -1,6 +1,7 @@
 import express, { Express } from "express";
 import cors from "cors";
 import { savingsRoute, authRoute } from "./routes";
+import { verifyJWT } from "./middleware/verifyJWT";
 
 const port = 3000;
 const app: Express = express();
@@ -12,6 +13,8 @@ app.use(
   })
 );
 app.use("/api/v1/auth", authRoute);
+
+app.use(verifyJWT);
 app.use("/api/v1/savings", savingsRoute);
 
 app.listen(port, () => {
