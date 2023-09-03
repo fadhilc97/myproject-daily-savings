@@ -58,10 +58,15 @@ export const login = async (request: Request, response: Response) => {
     { expiresIn: "1d" }
   );
 
-  await db.query("UPDATE users SET refreshToken = $1 WHERE id = $2", [
+  await db.query("UPDATE users SET refresh_token = $1 WHERE id = $2", [
     refreshToken,
     foundedUser.id,
   ]);
+
+  response.cookie("jwt", refreshToken, {
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000,
+  });
 
   return response.status(200).send({
     status: "ok",
