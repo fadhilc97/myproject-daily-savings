@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { db } from "../../config";
 
 interface IUser {
+  id: string;
   fullName: string;
   email: string;
   password: string;
@@ -23,7 +25,7 @@ export const login = async (request: Request, response: Response) => {
 
   // cari user berdasarkan email
   const result = await db.query(
-    "SELECT email, password FROM users WHERE email = $1 LIMIT 1",
+    "SELECT id, email, password FROM users WHERE email = $1 LIMIT 1",
     [email]
   );
 
@@ -39,9 +41,32 @@ export const login = async (request: Request, response: Response) => {
     return response.status(401).send(errorJson);
   }
 
+  // buat JWT ketika pengecekan berhasil
+  const accessToken = jwt.sign(
+    {
+      username: foundedUser.email,
+    },
+    process.env.ACCESS_TOKEN_SECRET as string,
+    { expiresIn: "30s" }
+  );
+
+  const refreshToken = jwt.sign(
+    {
+      username: foundedUser.email,
+    },
+    process.env.REFRESH_TOKEN_SECRET as string,
+    { expiresIn: "1d" }
+  );
+
+  await db.query("UPDATE users SET refreshToken = $1 WHERE id = $2", [
+    refreshToken,
+    foundedUser.id,
+  ]);
+
   return response.status(200).send({
     status: "ok",
     message: "Login successful",
+    data: { accessToken },
   });
 };
 
