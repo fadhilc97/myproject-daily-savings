@@ -10,31 +10,24 @@ export const verifyJWT = (
   response: Response,
   next: NextFunction
 ) => {
-  const authHeader = request.headers["authorization"];
-  if (!authHeader) {
-    return response.status(401).send({
-      status: "error",
-      message: "Authentication failed.",
-      error: "unauthorized",
-    });
-  }
-
-  // "Bearer {token}" => ["Bearer", {token}]
-
-  const token = authHeader.split(" ")[1];
-  jwt.verify(
-    token,
-    process.env.ACCESS_TOKEN_SECRET as string,
-    (error, decoded) => {
-      if (error) {
-        return response.status(403).send({
-          status: "error",
-          message: "Unable to access resource",
-          error: "forbidden",
-        });
-      }
-      // request.email = decoded.email; // TODO: How to fix ?
-      next();
+  const unauthorizedError = {
+    status: "error",
+    message: "Authentication failed.",
+    error: "unauthorized",
+  };
+  try {
+    const authHeader = request.headers["authorization"];
+    if (!authHeader) {
+      return response.status(401).send(unauthorizedError);
     }
-  );
+    const token = authHeader.split(" ")[1];
+    const decoded = jwt.verify(
+      token,
+      process.env.ACCESS_TOKEN_SECRET as string
+    );
+    (request as IAccessToken).email = decoded;
+    next();
+  } catch (error) {
+    return response.status(401).send(unauthorizedError);
+  }
 };
