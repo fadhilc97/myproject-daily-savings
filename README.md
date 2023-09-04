@@ -87,5 +87,5 @@
 - [x] Register user functionality
 - [x] Login functionality
 - [x] JWT implementation under auth service
-- [ ] Implement access token to protect the certain resources
-- [ ] Refresh token functionality
+- [x] Implement access token to protect the certain resources
+- [x] Refresh token functionality
