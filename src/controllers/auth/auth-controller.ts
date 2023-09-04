@@ -44,7 +44,7 @@ export const login = async (request: Request, response: Response) => {
   // buat JWT ketika pengecekan berhasil
   const accessToken = jwt.sign(
     {
-      username: foundedUser.email,
+      email: foundedUser.email,
     },
     process.env.ACCESS_TOKEN_SECRET as string,
     { expiresIn: "30s" }
@@ -52,7 +52,7 @@ export const login = async (request: Request, response: Response) => {
 
   const refreshToken = jwt.sign(
     {
-      username: foundedUser.email,
+      email: foundedUser.email,
     },
     process.env.REFRESH_TOKEN_SECRET as string,
     { expiresIn: "1d" }
