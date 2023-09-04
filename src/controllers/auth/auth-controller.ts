@@ -2,17 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { db } from "../../config";
-
-interface IUser {
-  id: string;
-  fullName: string;
-  email: string;
-  password: string;
-}
-
-interface IRegister extends IUser {
-  password2: string;
-}
+import { IUser, IRegister } from "../../@types/auth";
 
 export const login = async (request: Request, response: Response) => {
   const { email, password }: IUser = request.body;

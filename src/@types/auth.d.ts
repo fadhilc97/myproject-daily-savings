@@ -15,3 +15,7 @@ export interface IUser {
 export interface IJwtPayload extends jwt.JwtPayload {
   email: string;
 }
+
+interface IRegister extends IUser {
+  password2: string;
+}
