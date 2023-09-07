@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
+import jwt from "jsonwebtoken";
 import { db } from "../../config";
+import { IJwtPayload } from "../../@types/auth";
 
 interface ISaving {
   date: Date;
@@ -7,6 +9,7 @@ interface ISaving {
 }
 
 export const getSavings = async (request: Request, response: Response) => {
+  console.log(request);
   const result = await db.query(
     "SELECT date, sum(amount) AS amount FROM savings GROUP BY date ORDER BY date"
   );
@@ -25,12 +28,18 @@ export const getSavingsTotal = async (request: Request, response: Response) => {
 };
 
 export const createSavings = async (request: Request, response: Response) => {
+  // can be refactor, use request properties instead
+  const accessToken = request.headers["authorization"];
+  const decoded = jwt.decode(
+    accessToken?.split(" ")[1] as string
+  ) as IJwtPayload;
+  const loginUserId = decoded.sub;
   const { date, amount }: ISaving = request.body;
   try {
-    await db.query("INSERT INTO savings (date, amount) VALUES ($1, $2)", [
-      date,
-      amount,
-    ]);
+    await db.query(
+      "INSERT INTO savings (date, amount, user_id) VALUES ($1, $2, $3)",
+      [date, amount, loginUserId]
+    );
     response.status(201).send({
       status: "created",
       message: "Savings created successful.",
