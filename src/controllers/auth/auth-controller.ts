@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { db } from "../../config";
 import { IUser, IRegister } from "../../@types/auth";
 
-export const login = async (request: Request, response: Response) => {
+export const handleLogin = async (request: Request, response: Response) => {
   const { email, password }: IUser = request.body;
 
   const errorJson = {
@@ -65,7 +65,7 @@ export const login = async (request: Request, response: Response) => {
   });
 };
 
-export const register = async (request: Request, response: Response) => {
+export const handleRegister = async (request: Request, response: Response) => {
   // terima data dari user berupa fullName, email dan password
   const { fullName, email, password, password2 }: IRegister = request.body;
 

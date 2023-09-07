@@ -1,10 +1,16 @@
 import express from "express";
-import { login, register, handleRefreshToken } from "../../controllers";
+import {
+  handleLogin,
+  handleRegister,
+  handleRefreshToken,
+  handleLogout,
+} from "../../controllers";
 
 const router = express.Router();
 
-router.post("/login", login);
-router.post("/register", register);
+router.post("/login", handleLogin);
+router.post("/register", handleRegister);
 router.get("/refresh", handleRefreshToken);
+router.get("/logout", handleLogout);
 
 export default router;
