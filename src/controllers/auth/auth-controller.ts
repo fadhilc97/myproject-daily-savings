@@ -39,13 +39,13 @@ export const handleLogin = async (request: Request, response: Response) => {
   const accessToken = jwt.sign(
     jwtPayload,
     process.env.ACCESS_TOKEN_SECRET as string,
-    { expiresIn: "30s" }
+    { expiresIn: "5m" }
   );
 
   const refreshToken = jwt.sign(
     jwtPayload,
     process.env.REFRESH_TOKEN_SECRET as string,
-    { expiresIn: "1d" }
+    { expiresIn: "5m" }
   );
 
   await db.query("UPDATE users SET refresh_token = $1 WHERE id = $2", [
