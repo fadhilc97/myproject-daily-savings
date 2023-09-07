@@ -13,7 +13,7 @@ export interface IUser {
 }
 
 export interface IJwtPayload extends jwt.JwtPayload {
-  email: string;
+  email?: string;
 }
 
 interface IRegister extends IUser {
