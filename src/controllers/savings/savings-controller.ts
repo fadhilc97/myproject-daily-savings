@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import jwt from "jsonwebtoken";
 import { db } from "../../config";
 
 interface ISaving {
@@ -8,9 +7,9 @@ interface ISaving {
 }
 
 export const getSavings = async (request: Request, response: Response) => {
-  console.log(request);
   const result = await db.query(
-    "SELECT date, sum(amount) AS amount FROM savings GROUP BY date ORDER BY date"
+    "SELECT date, sum(amount) AS amount FROM savings WHERE user_id = $1 GROUP BY date ORDER BY date",
+    [request.user.id]
   );
   response.status(200).send({
     status: "ok",
