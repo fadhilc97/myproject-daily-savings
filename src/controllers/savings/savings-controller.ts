@@ -18,7 +18,10 @@ export const getSavings = async (request: Request, response: Response) => {
 };
 
 export const getSavingsTotal = async (request: Request, response: Response) => {
-  const result = await db.query("SELECT SUM(amount) AS total FROM savings");
+  const result = await db.query(
+    "SELECT SUM(amount) AS total FROM savings WHERE user_id = $1",
+    [request.user.id]
+  );
   response.status(200).send({
     status: "ok",
     data: { total: parseInt(result.rows[0].total) },
