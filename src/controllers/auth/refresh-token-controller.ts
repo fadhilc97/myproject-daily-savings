@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { db } from "../../config";
-import { IJwtPayload, IUser } from "../../@types/auth";
+import { IUser } from "../../@types/auth";
 
 const unauthorizedError = {
   status: "error",
@@ -43,7 +43,7 @@ export const handleRefreshToken = async (
     const decoded = jwt.verify(
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET as string
-    ) as IJwtPayload;
+    ) as jwt.JwtPayload;
     if (foundedUser.email !== decoded.email) {
       return response.status(403).send(forbiddenError);
     }

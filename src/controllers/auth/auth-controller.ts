@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { db } from "../../config";
-import { IUser, IRegister, IJwtPayload } from "../../@types/auth";
+import { IUser, IRegister } from "../../@types/auth";
 
 export const handleLogin = async (request: Request, response: Response) => {
   const { email, password }: IUser = request.body;
@@ -32,9 +32,9 @@ export const handleLogin = async (request: Request, response: Response) => {
   }
 
   // buat JWT ketika pengecekan berhasil
-  const jwtPayload: IJwtPayload = {
+  const jwtPayload: jwt.JwtPayload = {
     email: foundedUser.email,
-    sub: foundedUser.id,
+    id: foundedUser.id,
   };
   const accessToken = jwt.sign(
     jwtPayload,

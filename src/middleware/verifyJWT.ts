@@ -3,8 +3,6 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-import { IAccessToken } from "../@types/auth";
-
 export const verifyJWT = (
   request: Request,
   response: Response,
@@ -24,8 +22,9 @@ export const verifyJWT = (
     const decoded = jwt.verify(
       token,
       process.env.ACCESS_TOKEN_SECRET as string
-    );
-    (request as IAccessToken).email = decoded;
+    ) as jwt.JwtPayload;
+    const { email, id } = decoded;
+    request.user = { email, id };
     next();
   } catch (error) {
     return response.status(401).send(unauthorizedError);
