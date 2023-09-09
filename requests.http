@@ -29,13 +29,13 @@ GET http://localhost:3000/api/v1/auth/logout
 ###
 
 GET http://localhost:3000/api/v1/savings
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhZGhpbEBleGFtcGxlLmNvbSIsInN1YiI6NCwiaWF0IjoxNjk0MTAxNDk0LCJleHAiOjE2OTQxMDE3OTR9.sX13IQIaMhJrjPszVOvHfX0aKi8HkZ5RfNZQ5YgoZeg
+Authorization: Bearer {token}
 
 ###
 
 POST http://localhost:3000/api/v1/savings
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhZGhpbEBleGFtcGxlLmNvbSIsInN1YiI6NCwiaWF0IjoxNjk0MTAxNDk0LCJleHAiOjE2OTQxMDE3OTR9.sX13IQIaMhJrjPszVOvHfX0aKi8HkZ5RfNZQ5YgoZeg
+Authorization: Bearer {token}
 
 {
   "date": "2023-09-07",
