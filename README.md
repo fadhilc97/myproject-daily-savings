@@ -91,15 +91,15 @@
 - [x] JWT implementation under auth service
 - [x] Implement access token to protect the certain resources
 - [x] Refresh token functionality
-- [ ] Create savings should store the current `user_id`
+- [x] Create savings should store the current `user_id`
+- [x] Get savings should filtered by current user login
 
 ### Refactoring
 
 - [x] Create new `.d.ts` to override `Request` instance
-- [ ] Under `/src/controllers/auth` directory, separate controller files between `handleLogin` and `handleRegister` function
+- [x] Under `/src/controllers/auth` directory, separate controller files between `handleLogin` and `handleRegister` function
 - [x] Under `/src/middleware/verifyJWT.ts` file, override `request` property with new attribute `user` currently login based on the current `access_token` payload. So it will be applied to other functions that need `Request` instance as first argument
 - [x] When create new savings with `user_id`, utilize the `request` property to get the id
-- [ ] Standarize JSON response
 
 ### Documentations
 
