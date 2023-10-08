@@ -45,7 +45,7 @@ export const handleLogin = async (request: Request, response: Response) => {
   const refreshToken = jwt.sign(
     jwtPayload,
     process.env.REFRESH_TOKEN_SECRET as string,
-    { expiresIn: "5m" }
+    { expiresIn: "10m" }
   );
 
   await db.query("UPDATE users SET refresh_token = $1 WHERE id = $2", [
@@ -53,8 +53,12 @@ export const handleLogin = async (request: Request, response: Response) => {
     foundedUser.id,
   ]);
 
+  // console.log(refreshToken);
+
   response.cookie("jwt", refreshToken, {
     httpOnly: true,
+    sameSite: "none",
+    secure: true,
     maxAge: 24 * 60 * 60 * 1000,
   });
 
