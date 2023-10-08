@@ -40,7 +40,8 @@ export const handleLogout = async (request: Request, response: Response) => {
   // hapus token di cookie
   response.clearCookie("jwt", {
     httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000,
+    sameSite: "none",
+    secure: true,
   });
   return response.sendStatus(204);
 };
