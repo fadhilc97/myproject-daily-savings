@@ -53,8 +53,6 @@ export const handleLogin = async (request: Request, response: Response) => {
     foundedUser.id,
   ]);
 
-  // console.log(refreshToken);
-
   response.cookie("jwt", refreshToken, {
     httpOnly: true,
     sameSite: "none",
