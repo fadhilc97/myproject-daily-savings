@@ -48,7 +48,7 @@ export const handleRefreshToken = async (
       return response.status(403).send(forbiddenError);
     }
     const accessToken = jwt.sign(
-      { email: decoded.email },
+      { email: decoded.email, id: foundedUser.id },
       process.env.ACCESS_TOKEN_SECRET as string,
       { expiresIn: "30s" }
     );
