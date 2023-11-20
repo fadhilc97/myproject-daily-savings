@@ -3,7 +3,7 @@
 **Functional**
 
 - [x] As a user, I should login first to allow access entire savings application
-- [ ] As a user, I should able to exit from the system by logging out
+- [x] As a user, I should able to exit from the system by logging out
 - [x] As a user, I want to record my savings daily, so I can see the savings progress
 - [x] As a user, I want to see my savings list, so I got the insight about my savings
 - [x] As a user, I want to see my total savings, so I can summarize the savings progress
@@ -101,7 +101,3 @@
 - [x] Under `/src/controllers/auth` directory, separate controller files between `handleLogin` and `handleRegister` function
 - [x] Under `/src/middleware/verifyJWT.ts` file, override `request` property with new attribute `user` currently login based on the current `access_token` payload. So it will be applied to other functions that need `Request` instance as first argument
 - [x] When create new savings with `user_id`, utilize the `request` property to get the id
-
-### Documentations
-
-- [ ] Separate the API Endpoints section to other sub-sections
